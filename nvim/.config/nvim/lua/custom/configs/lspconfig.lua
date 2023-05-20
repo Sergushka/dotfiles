@@ -13,3 +13,8 @@ lspconfig.tsserver.setup({
   filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
   root_dir = function() return vim.loop.cwd() end
 })
+
+lspconfig.zls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})

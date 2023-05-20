@@ -8,7 +8,8 @@ local plugins = {
         "lua-language-server",
         "html-lsp",
         "prettier",
-        "stylua"
+        "stylua",
+        "zls"
       }
     }
   },
@@ -33,6 +34,9 @@ local plugins = {
     config = function()
       require "plugins.configs.prettier"
     end
+  },
+  {
+    "ziglang/zig.vim"
   },
   {
     "nvim-treesitter/nvim-treesitter",
