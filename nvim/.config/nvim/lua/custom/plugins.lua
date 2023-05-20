@@ -54,6 +54,7 @@ local plugins = {
         "tsx",
         "json",
         "rust",
+        "zig",
 
         -- low level
         "c",
