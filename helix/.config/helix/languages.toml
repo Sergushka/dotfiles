@@ -1,0 +1,6 @@
+[[language]]
+name = "rust"
+
+# On older versions of Helix, try using [language.config.check] instead
+[language-server.rust-analyzer.config.check]
+command = "clippy"
