@@ -1,8 +1,9 @@
-theme = "rose_pine_moon"
+theme = "onedark"
 
 [editor]
 line-number = "relative"
 mouse = false
+color-modes = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -12,10 +13,20 @@ select = "underline"
 [editor.file-picker]
 hidden = false
 
+[editor.lsp]
+display-messages = true
+
+[editor.statusline]
+left = ["mode", "spacer", "spinner", "spacer", "diagnostics"]
+center = ["file-name"]
+right = ["file-encoding", "file-line-ending", "file-type", "selections", "position"]
 
 [keys.normal]
 C-d = ["half_page_down", "align_view_center"]
 C-u = ["half_page_up", "align_view_center"]
+"C-/" = "toggle_comments"
+C-s = ":w"
 
 [keys.insert]
 j = { k = "normal_mode" } # Maps `jk` to exit insert mode
+C-c = "normal_mode"
