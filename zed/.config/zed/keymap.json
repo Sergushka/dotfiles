@@ -1,0 +1,18 @@
+[
+  {
+    "context": "Editor && showing_code_actions",
+    "bindings": {
+      "enter": "editor::ConfirmCodeAction"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-shift-k": "editor::MoveLineUp",
+      "cmd-shift-j": "editor::MoveLineDown",
+      "cmd-k cmd-g": "editor::GoToDefinition",
+      "cmd-k cmd-r": "editor::Rename",
+      "ctrl-k": "editor::Hover"
+    }
+  }
+]
