@@ -1,5 +1,14 @@
 set fish_greeting
 
+# Navigation
+function ..    ; cd .. ; end
+function ...   ; cd ../.. ; end
+function ....  ; cd ../../.. ; end
+function ..... ; cd ../../../.. ; end
+
+# Utilities
+function grep     ; command grep --color=auto $argv ; end
+
 alias vim='nvim'
 alias lt='exa -aT --color=always --group-directories-first' # tree listing
 
