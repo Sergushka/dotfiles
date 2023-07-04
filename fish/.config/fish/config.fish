@@ -11,6 +11,7 @@ function grep     ; command grep --color=auto $argv ; end
 
 alias vim='nvim'
 alias lt='exa -aT --color=always --group-directories-first' # tree listing
+alias emacs='emacsclient -c -a "emacs"'
 
 # confirm before overwriting something
 alias cp="cp -i"
