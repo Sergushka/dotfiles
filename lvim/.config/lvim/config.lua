@@ -32,5 +32,7 @@ lvim.builtin.terminal.open_mapping = "<M-t>"
 
 -- Plugins
 lvim.plugins = {
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    { "catppuccin/nvim",  name = "catppuccin", priority = 1000 },
+    { "Tetralux/odin.vim" },
 }
+require'lspconfig'.ols.setup{}
