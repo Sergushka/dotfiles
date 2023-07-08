@@ -125,7 +125,7 @@ require("lazy").setup({
 		dependencies = {
 			{ "williamboman/mason.nvim",          config = true },
 			{ "williamboman/mason-lspconfig.nvim" },
-			{ "j-hui/fidget.nvim",                opts = {} },
+			{ "j-hui/fidget.nvim",                opts = {},    tag = 'legacy' },
 			{ "folke/neodev.nvim" },
 		},
 	},
@@ -217,6 +217,9 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 		},
 	},
+	{
+		'christoomey/vim-tmux-navigator'
+	}
 })
 
 
@@ -359,9 +362,9 @@ vim.api.nvim_create_autocmd('ModeChanged', {
 	desc = 'Forget the current snippet when leaving the insert mode',
 	callback = function(evt)
 		if
-			luasnip.session
-			and luasnip.session.current_nodes[evt.buf]
-			and not luasnip.session.jump_active
+		    luasnip.session
+		    and luasnip.session.current_nodes[evt.buf]
+		    and not luasnip.session.jump_active
 		then
 			luasnip.unlink_current()
 		end
@@ -453,3 +456,7 @@ vim.keymap.set('n', '<C-d>', "<C-d>zz")
 vim.keymap.set('n', '<C-u>', "<C-u>zz")
 vim.keymap.set('n', 'n', "nzzzv")
 vim.keymap.set('n', 'N', "Nzzzv")
+vim.keymap.set('n', '<C-h>', "<cmd> TmuxNavigateLeft<CR>", { desc = 'Window left' })
+vim.keymap.set('n', '<C-l>', "<cmd> TmuxNavigateRight<CR>", { desc = 'Window right' })
+vim.keymap.set('n', '<C-j>', "<cmd> TmuxNavigateDown<CR>", { desc = 'Window down' })
+vim.keymap.set('n', '<C-k>', "<cmd> TmuxNavigateUp<CR>", { desc = 'Window up' })
