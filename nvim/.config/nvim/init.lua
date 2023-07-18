@@ -464,8 +464,8 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- aditional remaps
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = bufnr, desc = 'LSP Hover Documentation' })
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move lines down' })
-vim.keymap.set('v', 'K', ":m '>-2<CR>gv=gv", { desc = 'Move lines up' })
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, desc = 'Move lines down' })
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, desc = 'Move lines up' })
 vim.keymap.set('n', '<C-d>', "<C-d>zz")
 vim.keymap.set('n', '<C-u>', "<C-u>zz")
 vim.keymap.set('n', 'n', "nzzzv")
