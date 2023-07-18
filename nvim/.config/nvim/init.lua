@@ -27,25 +27,6 @@ require("lazy").setup({
 		end
 	},
 	{
-		"folke/noice.nvim",
-		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify", },
-		event = "VeryLazy",
-		config = function()
-			require("noice").setup({
-				cmdline = {
-					format = {
-						cmdline = { icon = ">" },
-						search_down = { icon = "search [v]" },
-						search_up = { icon = "search [^]" },
-						filter = { icon = "filter" },
-						lua = { icon = "lua" },
-						help = { icon = "help" },
-					}
-				}
-			})
-		end
-	},
-	{
 		"ggandor/leap.nvim",
 		config = function()
 			require('leap').add_default_mappings()
@@ -219,6 +200,38 @@ require("lazy").setup({
 	},
 	{
 		'christoomey/vim-tmux-navigator'
+	},
+	{
+		"jay-babu/mason-nvim-dap.nvim",
+		dependencies = {
+			"williamboman/mason.nvim",
+			'mfussenegger/nvim-dap'
+		},
+		opts = {
+			handlers = {},
+			ensure_installed = {
+				"codelldb"
+			}
+		}
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		event = "VeryLazy",
+		dependencies = "mfussenegger/nvim-dap",
+		config = function()
+			local dap = require("dap")
+			local dapui = require("dapui")
+			dapui.setup()
+			dap.listeners.after.event_initialized["dapui_config"] = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated["dapui_config"] = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited["dapui_config"] = function()
+				dapui.close()
+			end
+		end
 	}
 })
 
@@ -275,7 +288,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 require("nvim-treesitter.configs").setup({
 	-- Add languages to be installed here that you want installed for treesitter
-	ensure_installed = { "c", "go", "lua", "python", "rust", "tsx", "typescript", "vimdoc", "vim" },
+	ensure_installed = { "c", "cpp", "go", "lua", "python", "rust", "tsx", "typescript", "vimdoc", "vim" },
 
 	-- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
 	auto_install = false,
@@ -362,9 +375,9 @@ vim.api.nvim_create_autocmd('ModeChanged', {
 	desc = 'Forget the current snippet when leaving the insert mode',
 	callback = function(evt)
 		if
-		    luasnip.session
-		    and luasnip.session.current_nodes[evt.buf]
-		    and not luasnip.session.jump_active
+			luasnip.session
+			and luasnip.session.current_nodes[evt.buf]
+			and not luasnip.session.jump_active
 		then
 			luasnip.unlink_current()
 		end
@@ -423,8 +436,7 @@ vim.keymap.set('n', '<leader>g', ':LazyGit<CR>', { noremap = true, desc = 'Open 
 vim.keymap.set('n', '<leader>S', ':Telescope lsp_workspace_symbols<CR>', { noremap = true, desc = 'Workspace [S]ymbols' })
 vim.keymap.set('n', '<leader>l', ':Telescope live_grep<CR>', { noremap = true, desc = '[l]ive grep' })
 vim.keymap.set('n', '<leader>F', ':Telescope filetypes<CR>', { noremap = true, desc = '[F]iletypes list' })
-vim.keymap.set('n', '<leader>N', ':Noice telescope<CR>', { buffer = bufnr, desc = '[N]otification history' })
-vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = "Hover [d]iagnostic" })
+vim.keymap.set('n', '<leader>dd', vim.diagnostic.open_float, { desc = "Hover [d]iagnostic" })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Diagnostic list" })
 vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { buffer = bufnr, desc = 'LSP [r]ename' })
 vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, { buffer = bufnr, desc = 'LSP Code [a]ction' })
@@ -432,6 +444,8 @@ vim.keymap.set('n', '<leader>k', ":bdelete<CR>", { buffer = bufnr, desc = '[k]il
 vim.keymap.set('n', '<leader>K', ":bdelete!<CR>", { buffer = bufnr, desc = '[K]ill buffer (unsaved)' })
 vim.keymap.set('n', '<leader>n', ":tabnew<CR>", { buffer = bufnr, desc = '[n]ew tab' })
 vim.keymap.set('n', '<leader>z', ":ZenMode<CR>", { buffer = bufnr, desc = '[z]en mode' })
+vim.keymap.set('n', '<leader>db', "<cmd> DapToggleBreakpoint <CR>", { desc = '[d]ebugger [b]reak point' })
+vim.keymap.set('n', '<leader>dc', "<cmd> DapContinue <CR>", { desc = '[d]ebugger [c]ontinue' })
 
 -- goto maps
 vim.keymap.set('n', 'gbn', ":bnext<CR>", { buffer = bufnr, desc = 'Goto [b]uffer [n]ext' })
