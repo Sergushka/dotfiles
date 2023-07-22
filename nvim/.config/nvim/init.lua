@@ -131,18 +131,12 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		opts = {
 			options = {
-				icons_enabled = false,
+				icons_enabled = true,
 				theme = "tokyonight",
 				component_separators = "|",
 				section_separators = "",
 			},
 			sections = {
-				lualine_c = {
-					{
-						'filename',
-						path = 1,
-					}
-				},
 				lualine_x = {
 					{ "encoding" },
 					{ "fileformat" },
@@ -325,7 +319,14 @@ end
 
 local servers = {
 	gopls = {},
-	rust_analyzer = {},
+
+	rust_analyzer = {
+		["rust-analyzer"] = {
+			checkOnSave = {
+				command = "clippy",
+			},
+		},
+	},
 
 	lua_ls = {
 		Lua = {
