@@ -107,3 +107,5 @@ autoload -U promptinit; promptinit
 prompt pure
 zstyle :prompt:pure:git:stash show yes
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
