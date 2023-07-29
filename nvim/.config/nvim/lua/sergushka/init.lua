@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { "numToStr/Comment.nvim",  opts = {} },
+  { "numToStr/Comment.nvim",                  opts = {} },
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -23,11 +23,9 @@ require("lazy").setup({
         ["g"] = { name = "+goto" },
         ["]"] = { name = "+next" },
         ["["] = { name = "+prev" },
-        ["<leader>c"] = { name = "+code" },
-        ["<leader>g"] = { name = "+git" },
-        ["<leader>q"] = { name = "+session" },
-        ["<leader>d"] = { name = "+debugger" },
         ["gb"] = { name = "+buffer" },
+        ["<leader>c"] = { name = "+code" },
+        ["<leader>d"] = { name = "+debugger" },
         ["<leader>x"] = { name = "+diagnostics/quickfix" },
       },
     },
@@ -37,7 +35,6 @@ require("lazy").setup({
       wk.register(opts.defaults)
     end,
   },
-  { "stevearc/dressing.nvim", event = "VeryLazy" },
   {
     "RRethy/vim-illuminate",
     event = { "BufReadPost", "BufNewFile" },
@@ -60,14 +57,10 @@ require("lazy").setup({
       map("[[", "prev")
     end,
   },
-
   { "nvim-treesitter/nvim-treesitter-context" },
-  { "tpope/vim-surround" },
   {
     "folke/zen-mode.nvim",
-    config = function()
-      require("zen-mode").setup({})
-    end,
+    opts = {},
   },
   {
     "ggandor/leap.nvim",
@@ -82,23 +75,7 @@ require("lazy").setup({
   },
   {
     "echasnovski/mini.indentscope",
-    config = function()
-      require("mini.indentscope").setup()
-    end,
-  },
-  {
-    "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("todo-comments").setup({
-        highlight = {
-          pattern = [[.*<(KEYWORDS)\s* ]],
-        },
-        search = {
-          pattern = [[\b(KEYWORDS)\b]],
-        },
-      })
-    end,
+    opts = {},
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -140,64 +117,13 @@ require("lazy").setup({
     requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
   },
   {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      { "williamboman/mason.nvim",          config = true },
-      { "williamboman/mason-lspconfig.nvim" },
-      { "folke/neodev.nvim",                opts = {} },
-    },
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-    },
-    opts = {
-      history = true,
-      delete_check_events = "TextChanged",
-    },
-  },
-  {
     "simrat39/rust-tools.nvim",
   },
   {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-buffer",
-      {
-        'saecki/crates.nvim',
-        event = { "BufRead Cargo.toml" },
-        requires = { { 'nvim-lua/plenary.nvim' } },
-        config = function()
-          require('crates').setup()
-        end,
-      },
-    },
-  },
-  {
-    "lewis6991/gitsigns.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      signs = {
-        add = { text = "+" },
-        change = { text = "~" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-      },
-    },
-  },
-  {
     "nvim-lualine/lualine.nvim",
-    dependencies = {
-      'kyazdani42/nvim-web-devicons'
-    },
     opts = {
       options = {
-        theme = "tokyonight",
+        theme = "catppuccin",
         global_status = true,
       },
       sections = {
@@ -224,65 +150,10 @@ require("lazy").setup({
     },
   },
   {
-    "folke/persistence.nvim",
-    event = "BufReadPre",
-    opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" } },
-  },
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    opts = {
-      lsp = {
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
-        },
-      },
-      routes = {
-        {
-          filter = {
-            event = "msg_show",
-            any = {
-              { find = "%d+L, %d+B" },
-              { find = "; after #%d+" },
-              { find = "; before #%d+" },
-            },
-          },
-          view = "mini",
-        },
-      },
-      presets = {
-        bottom_search = true,
-        command_palette = true,
-        long_message_to_split = true,
-        inc_rename = true,
-      },
-    },
-    dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
-    },
-  },
-  {
     "SmiteshP/nvim-navic",
-    on_attach = function(client, buffer)
-      if client.server_capabilities.documentSymbolProvider then
-        require("nvim-navic").attach(client, buffer)
-      end
-    end,
-    lazy = true,
-    opts = function()
-      return {
-        separator = " ",
-        highlight = true,
-        depth_limit = 5,
-      }
-    end,
+  },
+  {
+    "mbbill/undotree",
   },
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -300,17 +171,11 @@ require("lazy").setup({
     event = { "BufReadPost", "BufNewFile" },
   },
   {
-    "nvim-pack/nvim-spectre",
-    cmd = "Spectre",
-    opts = { open_cmd = "noswapfile vnew" },
-  },
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
-    opts = {},
     config = function()
-      vim.cmd [[ colorscheme tokyonight ]]
+      vim.cmd [[ colorscheme catppuccin ]]
     end
   },
   {
@@ -356,36 +221,36 @@ require("lazy").setup({
     end,
   },
   {
-    "rcarriga/nvim-notify",
-    opts = {
-      timeout = 3000,
-      max_height = function()
-        return math.floor(vim.o.lines * 0.75)
-      end,
-      max_width = function()
-        return math.floor(vim.o.columns * 0.75)
-      end,
-    },
-  },
-  {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
     dependencies = {
       -- LSP Support
-      { 'neovim/nvim-lspconfig' }, -- Required
-      {                            -- Optional
-        'williamboman/mason.nvim',
-        build = function()
-          pcall(vim.api.nvim_command, 'MasonUpdate')
-        end,
-      },
+      { "folke/neodev.nvim",                opts = {} },
+      { 'neovim/nvim-lspconfig' },             -- Required
+      { 'williamboman/mason.nvim', },          -- Optional
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
       -- Autocompletion
       { 'hrsh7th/nvim-cmp' },     -- Required
       { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-      { 'L3MON4D3/LuaSnip' },     -- Required
+      {
+        "L3MON4D3/LuaSnip",
+        dependencies = {
+          "rafamadriz/friendly-snippets",
+        },
+        opts = {
+          history = true,
+          delete_check_events = "TextChanged",
+        },
+      },
     }
+  },
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      icons = false,
+    },
   },
 })
 
@@ -395,9 +260,13 @@ require("sergushka.keymaps")
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = highlight_group,
   callback = function()
-    vim.highlight.on_yank()
+    vim.highlight.on_yank({
+      higroup = 'IncSearch',
+      timeout = 40,
+    })
   end,
 })

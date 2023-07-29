@@ -2,14 +2,16 @@
 vim.keymap.set("n", "<leader>f", ":Telescope file_browser path=%:p:h<CR>", { noremap = true, desc = "[f]ile browser" })
 vim.keymap.set("n", "<leader>t", ":Telescope find_files<CR>", { noremap = true, desc = "find files" })
 vim.keymap.set("n", "<leader>b", ":Telescope buffers show_all_buffers=true<CR>", { noremap = true, desc = "[b]uffers" })
-vim.keymap.set("n", "<leader>xD", ":Telescope diagnostics<CR>", { noremap = true, desc = "[D]iagnostics list" })
 vim.keymap.set("n", "<leader>cs", ":Telescope lsp_document_symbols<CR>", { noremap = true, desc = "Document [s]ymbols" })
 vim.keymap.set("n", "<leader>l", ":Telescope live_grep<CR>", { noremap = true, desc = "[l]ive grep" })
 vim.keymap.set("n", "<leader>F", ":Telescope filetypes<CR>", { noremap = true, desc = "[F]iletypes list" })
 
 -- Diagnostic
 vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Hover [d]iagnostic" })
-vim.keymap.set("n", "<leader>xq", vim.diagnostic.setloclist, { desc = "Diagnostic list" })
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle loclist<CR>", { desc = "Diagnostic list" })
+vim.keymap.set("n", "<leader>xt", "<cmd>TroubleToggle quickfix<CR>",
+  { silent = true, noremap = true, desc = "Open trouble diagnostic" })
+vim.keymap.set("n", "<leader>xD", ":Telescope diagnostics<CR>", { noremap = true, desc = "[D]iagnostics list" })
 
 -- lsp
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP Hover Documentation" })
@@ -60,35 +62,14 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("n", "<C-h>", "<cmd> TmuxNavigateLeft<CR>", { desc = "Window left" })
 vim.keymap.set("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>", { desc = "Window right" })
 vim.keymap.set("n", "<C-j>", "<cmd> TmuxNavigateDown<CR>", { desc = "Window down" })
 vim.keymap.set("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>", { desc = "Window up" })
 
 --git remaps
-vim.keymap.set('n', '<leader>gp', require("gitsigns").preview_hunk, { buffer = bufnr, desc = "Preview hunk" })
-vim.keymap.set('n', '<leader>gd', require("gitsigns").diffthis, { buffer = bufnr, desc = "Diff this" })
-vim.keymap.set("n", "<leader>gg", ":LazyGit<CR>", { noremap = true, desc = "Open Lazy [g]it" })
+vim.keymap.set("n", "<leader>g", ":LazyGit<CR>", { noremap = true, desc = "Open Lazy [g]it" })
 
---spectre
-vim.keymap.set("n", "<leader>cR", ":Spectre<CR>", { noremap = true, desc = "Open Spectre" })
-
---persistance
--- restore the session for the current directory
-vim.keymap.set(
-  "n",
-  "<leader>qs",
-  [[<cmd>lua require("persistence").load()<cr>]],
-  { desc = "Restore session for current directory" }
-)
-
--- restore the last session
-vim.keymap.set(
-  "n",
-  "<leader>ql",
-  [[<cmd>lua require("persistence").load({ last = true })<cr>]],
-  { desc = "Restore last session" }
-)
-
--- stop Persistence => session won't be saved on exit
-vim.keymap.set("n", "<leader>qd", [[<cmd>lua require("persistence").stop()<cr>]], { desc = "Don't save this session" })
+-- undo tree
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, {desc = "Toogle undotree"})
