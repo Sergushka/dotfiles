@@ -8,9 +8,9 @@ vim.keymap.set("n", "<leader>F", ":Telescope filetypes<CR>", { noremap = true, d
 
 -- Diagnostic
 vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Hover [d]iagnostic" })
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle loclist<CR>", { desc = "Diagnostic list" })
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle loclist<CR>", { desc = "Location list" })
 vim.keymap.set("n", "<leader>xt", "<cmd>TroubleToggle quickfix<CR>",
-  { silent = true, noremap = true, desc = "Open trouble diagnostic" })
+  { silent = true, noremap = true, desc = "Open trouble quickfix" })
 vim.keymap.set("n", "<leader>xD", ":Telescope diagnostics<CR>", { noremap = true, desc = "[D]iagnostics list" })
 
 -- lsp
