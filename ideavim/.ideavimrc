@@ -1,10 +1,46 @@
-set relativenumber number
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+let mapleader = " "
+
+""" Plugins
+set commentary
+set surround                      " emulate vim-surround plugin
+
 set ideajoin
+set wrapscan                      " searches wrap around the end of the file
+set relativenumber number                        " line numbers
+set showmode
+set so=5
+set incsearch
+set ignorecase
+set smartcase
+
+set history=10000                 " keep x lines of command line history
+set clipboard=unnamedplus,unnamed,ideaput " integrate with system clipboard
+
+vnoremap < <gv
+vnoremap > >gv
+vnoremap = =gv
 
 nmap <C-d> <C-d>zz
 nmap <C-u> <C-u>zz
 nmap n nzzzv
 nmap N Nzzzv
 
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+map <leader>r <Action>(RenameElement)
+map <leader>f V<Action>(ReformatCode)
+map <leader>f <Action>(ReformatCode)
+map <leader>d <Action>(Debug)
+map <leader>b <Action>(ToggleLineBreakpoint)
+map <leader>s <Action>(Stop)
+map <leader>z <Action>(ToggleDistractionFreeMode)
+map <leader>] <Action>(NextTab)
+map <leader>[ <Action>(PreviousTab)
+nmap <leader>t <Action>(ActivateTerminalToolWindow)
+
+vmap <leader>rem :action ExtractMethod<CR>
+nmap <C-p> :action ParameterInfo<CR>
+imap <C-p> <C-o>:action ParameterInfo<CR>
