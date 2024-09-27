@@ -120,6 +120,17 @@ require("lazy").setup({
     "simrat39/rust-tools.nvim",
   },
   {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+  },
+  {
+    'lewis6991/gitsigns.nvim',
+    opts = {},
+  },
+  {
     "nvim-lualine/lualine.nvim",
     opts = {
       options = {
@@ -174,13 +185,6 @@ require("lazy").setup({
     "mbbill/undotree",
   },
   {
-    "lukas-reineke/indent-blankline.nvim",
-    opts = {
-      char = "»",
-      show_trailing_blankline_indent = false,
-    },
-  },
-  {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
@@ -219,6 +223,7 @@ require("lazy").setup({
     dependencies = {
       "williamboman/mason.nvim",
       "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
     },
     opts = {
       handlers = {},
