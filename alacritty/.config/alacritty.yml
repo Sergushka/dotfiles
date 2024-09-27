@@ -450,10 +450,10 @@ cursor:
 # Default:
 #   - (Linux/BSD/macOS) `$SHELL` or the user's login shell, if `$SHELL` is unset
 #   - (Windows) powershell
-shell:
-  program: /usr/local/bin/fish
-  args:
-    - -l
+# shell:
+#   program: /usr/local/bin/fish
+#   args:
+#     - -l
 #  args:
 #    - --login
 
