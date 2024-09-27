@@ -13,6 +13,9 @@ vim.keymap.set("n", "<leader>xt", "<cmd>TroubleToggle quickfix<CR>",
   { silent = true, noremap = true, desc = "Open trouble quickfix" })
 vim.keymap.set("n", "<leader>xD", ":Telescope diagnostics<CR>", { noremap = true, desc = "[D]iagnostics list" })
 
+-- oil
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
 -- lsp
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP Hover Documentation" })
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP [r]ename" })

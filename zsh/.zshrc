@@ -4,4 +4,7 @@ export PATH="$HOME/bin:/usr/local/bin:$MODULAR_HOME/pkg/packages.modular.com_moj
 
 alias ls="eza --icons=always"
 
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 eval "$(starship init zsh)"
