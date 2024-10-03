@@ -12,6 +12,10 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey '^H' backward-kill-word
+
 alias boot-win="sudo efibootmgr -n 2; sudo reboot"
 
 eval "$(starship init zsh)"
