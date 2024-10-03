@@ -6,5 +6,12 @@ alias ls="eza --icons=always"
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+
+alias boot-win="sudo efibootmgr -n 2; sudo reboot"
 
 eval "$(starship init zsh)"
