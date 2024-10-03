@@ -10,5 +10,6 @@ config.enable_tab_bar = false
 
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.8
+config.color_scheme = 'Catppuccin Mocha'
 
 return config
