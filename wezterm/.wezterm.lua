@@ -11,5 +11,8 @@ config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.8
 config.color_scheme = 'Catppuccin Mocha'
+config.keys = {
+    {key="v", mods="CTRL", action=wezterm.action{PasteFrom="Clipboard"}},
+}
 
 return config
