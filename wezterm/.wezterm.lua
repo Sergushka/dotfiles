@@ -15,4 +15,10 @@ config.keys = {
     {key="v", mods="CTRL", action=wezterm.action{PasteFrom="Clipboard"}},
 }
 
+if os.getenv("XDG_CURRENT_DESKTOP") == "Hyprland" then
+  config.enable_wayland = false
+else
+  config.enable_wayland = true
+end
+
 return config
