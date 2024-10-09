@@ -17,5 +17,6 @@ bindkey "^[[1;5D" backward-word
 bindkey '^H' backward-kill-word
 
 alias boot-win="sudo efibootmgr -n 2; sudo reboot"
+alias boot-bios="sudo systemctl reboot --firmware-setup"
 
 eval "$(starship init zsh)"
