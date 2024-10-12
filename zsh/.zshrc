@@ -1,22 +1,55 @@
 # If you come from bash you might have to change your $PATH.
-export MODULAR_HOME="$HOME/.modular"
-export PATH="$HOME/bin:/usr/local/bin:$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"
+export PATH="$HOME/bin:/usr/local/bin:$PATH"
 
+# Set the directory we want to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+source "${ZINIT_HOME}/zinit.zsh"
+
+# Add plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+
+# Add snippets
+zinit snippet OMZL::git.zsh
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::command-not-found
+
+autoload -Uz compinit && compinit
+
+zinit cdreplay -q
+
+# Aliases
 alias ls="eza --icons=always"
-
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+alias boot-win="sudo efibootmgr -n 2; sudo reboot"
+alias boot-bios="sudo systemctl reboot --firmware-setup"
   
+# History
+HISTSIZE=5000
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
 setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey '^H' backward-kill-word
 
-alias boot-win="sudo efibootmgr -n 2; sudo reboot"
-alias boot-bios="sudo systemctl reboot --firmware-setup"
-
 eval "$(starship init zsh)"
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
