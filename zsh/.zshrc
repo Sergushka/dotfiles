@@ -1,11 +1,18 @@
 # If you come from bash you might have to change your $PATH.
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
 
+# Check if Starship is installed
+if ! command -v starship >/dev/null 2>&1; then
+    echo "Starship is not installed. Proceeding with installation..."
+    curl -sS https://starship.rs/install.sh | sh
+fi
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 # Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
+   echo "ZINIT is not installed. Proceeding with installation..."
    mkdir -p "$(dirname $ZINIT_HOME)"
    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
