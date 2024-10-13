@@ -1,0 +1,13 @@
+ripgrep
+fzf
+fd
+zoxide
+tldr
+eza
+neovim
+tmux
+git
+lazygit
+python3
+wezterm
+font-jetbrains-mono-nerd-font
