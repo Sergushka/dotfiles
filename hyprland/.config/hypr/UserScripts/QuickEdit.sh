@@ -4,7 +4,7 @@
 
 # Define preferred text editor and terminal
 edit=${EDITOR:-nano}
-tty=wezterm
+tty=kitty
 
 # Paths to configuration directories
 configs="$HOME/.config/hypr/configs"
