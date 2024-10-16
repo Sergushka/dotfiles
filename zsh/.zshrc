@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
+export EDITOR="nvim"
 
 # Check if Starship is installed
 if ! command -v starship >/dev/null 2>&1; then
