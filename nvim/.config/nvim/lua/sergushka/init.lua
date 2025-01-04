@@ -35,39 +35,7 @@ require("lazy").setup({
       wk.register(opts.defaults)
     end,
   },
-  {
-    "RRethy/vim-illuminate",
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      delay = 200,
-      large_file_cutoff = 2000,
-      large_file_overrides = {
-        providers = { "lsp" },
-      },
-    },
-    config = function(_, opts)
-      require("illuminate").configure(opts)
-      local function map(key, dir, buffer)
-        vim.keymap.set("n", key, function()
-          require("illuminate")["goto_" .. dir .. "_reference"](false)
-        end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
-      end
-
-      map("]]", "next")
-      map("[[", "prev")
-    end,
-  },
   { "nvim-treesitter/nvim-treesitter-context" },
-  {
-    "folke/zen-mode.nvim",
-    opts = {},
-  },
-  {
-    "ggandor/leap.nvim",
-    config = function()
-      require("leap").add_default_mappings()
-    end,
-  },
   {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
@@ -115,9 +83,6 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope-file-browser.nvim",
     requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-  },
-  {
-    "simrat39/rust-tools.nvim",
   },
   {
     'stevearc/oil.nvim',
@@ -182,9 +147,6 @@ require("lazy").setup({
     "SmiteshP/nvim-navic",
   },
   {
-    "mbbill/undotree",
-  },
-  {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
@@ -217,39 +179,6 @@ require("lazy").setup({
   },
   {
     "christoomey/vim-tmux-navigator",
-  },
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "mfussenegger/nvim-dap",
-      "nvim-neotest/nvim-nio",
-    },
-    opts = {
-      handlers = {},
-      ensure_installed = {
-        "codelldb",
-      },
-    },
-  },
-  {
-    "rcarriga/nvim-dap-ui",
-    event = "VeryLazy",
-    dependencies = "mfussenegger/nvim-dap",
-    config = function()
-      local dap = require("dap")
-      local dapui = require("dapui")
-      dapui.setup()
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
-    end,
   },
   {
     'VonHeikemen/lsp-zero.nvim',

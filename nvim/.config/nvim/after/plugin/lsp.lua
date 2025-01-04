@@ -27,8 +27,6 @@ lsp.setup_nvim_cmp({
   mapping = cmp_mappings,
 })
 
-require("rust-tools").setup({})
-
 local navic = require("nvim-navic")
 
 lsp.on_attach(function(client, bufnr)
