@@ -18,21 +18,20 @@ require("lazy").setup({
     event = "VeryLazy",
     opts = {
       plugins = { spelling = true },
-      defaults = {
-        mode = { "n", "v" },
-        ["g"] = { name = "+goto" },
-        ["]"] = { name = "+next" },
-        ["["] = { name = "+prev" },
-        ["gb"] = { name = "+buffer" },
-        ["<leader>c"] = { name = "+code" },
-        ["<leader>d"] = { name = "+debugger" },
-        ["<leader>x"] = { name = "+diagnostics/quickfix" },
-      },
     },
     config = function(_, opts)
       local wk = require("which-key")
       wk.setup(opts)
-      wk.register(opts.defaults)
+      wk.add({
+        mode = { "n", "v" },
+        { "g", group = "+goto" },
+        { "]", group = "+next" },
+        { "[", group = "+prev" },
+        { "gb", group = "+buffer" },
+        { "<leader>c", group = "+code" },
+        { "<leader>d", group = "+debugger" },
+        { "<leader>x", group = "+diagnostics/quickfix" },
+      })
     end,
   },
   { "nvim-treesitter/nvim-treesitter-context" },
