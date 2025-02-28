@@ -1,110 +1,176 @@
 #!/bin/bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */ 
-# This script for selecting wallpapers (SUPER W)
+#  _      __     ____                      
+# | | /| / /__ _/ / /__  ___ ____  ___ ____
+# | |/ |/ / _ `/ / / _ \/ _ `/ _ \/ -_) __/
+# |__/|__/\_,_/_/_/ .__/\_,_/ .__/\__/_/   
+#                /_/       /_/             
+# -----------------------------------------------------
+# Check to use wallpaper cache
+# -----------------------------------------------------
 
-# WALLPAPERS PATH
-wallDIR="$HOME/Pictures/wallpapers"
-SCRIPTSDIR="$HOME/.config/hypr/scripts"
-
-# variables
-focused_monitor=$(hyprctl monitors | awk '/^Monitor/{name=$2} /focused: yes/{print name}')
-# swww transition config
-FPS=60
-TYPE="any"
-DURATION=2
-BEZIER=".43,1.19,1,.4"
-SWWW_PARAMS="--transition-fps $FPS --transition-type $TYPE --transition-duration $DURATION"
-
-# Check if swaybg is running
-if pidof swaybg > /dev/null; then
-  pkill swaybg
+if [ -f ~/.config/ml4w/settings/wallpaper_cache ]; then
+    use_cache=1
+    echo ":: Using Wallpaper Cache"
+else
+    use_cache=0
+    echo ":: Wallpaper Cache disabled"
 fi
 
-# Retrieve image files using null delimiter to handle spaces in filenames
-mapfile -d '' PICS < <(find "${wallDIR}" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" \) -print0)
+# -----------------------------------------------------
+# Set defaults
+# -----------------------------------------------------
 
-RANDOM_PIC="${PICS[$((RANDOM % ${#PICS[@]}))]}"
-RANDOM_PIC_NAME=". random"
+force_generate=0
+generatedversions="$HOME/.config/ml4w/cache/wallpaper-generated"
+waypaperrunning=$HOME/.config/ml4w/cache/waypaper-running
+cachefile="$HOME/.config/ml4w/cache/current_wallpaper"
+blurredwallpaper="$HOME/.config/ml4w/cache/blurred_wallpaper.png"
+squarewallpaper="$HOME/.config/ml4w/cache/square_wallpaper.png"
+rasifile="$HOME/.config/ml4w/cache/current_wallpaper.rasi"
+blurfile="$HOME/.config/ml4w/settings/blur.sh"
+defaultwallpaper="$HOME/wallpaper/default.jpg"
+wallpapereffect="$HOME/.config/ml4w/settings/wallpaper-effect.sh"
+blur="50x30"
+blur=$(cat $blurfile)
 
-# Rofi command
-rofi_command="rofi -i -show -dmenu -config ~/.config/rofi/config-wallpaper.rasi"
+# Ensures that the script only run once if wallpaper effect enabled
+if [ -f $waypaperrunning ]; then
+    rm $waypaperrunning
+    exit
+fi
 
-# Sorting Wallpapers
-menu() {
-  # Sort the PICS array
-  IFS=$'\n' sorted_options=($(sort <<<"${PICS[*]}"))
-  
-  # Place ". random" at the beginning with the random picture as an icon
-  printf "%s\x00icon\x1f%s\n" "$RANDOM_PIC_NAME" "$RANDOM_PIC"
-  
-  for pic_path in "${sorted_options[@]}"; do
-    pic_name=$(basename "$pic_path")
-    
-    # Displaying .gif to indicate animated images
-    if [[ ! "$pic_name" =~ \.gif$ ]]; then
-      printf "%s\x00icon\x1f%s\n" "$(echo "$pic_name" | cut -d. -f1)" "$pic_path"
+# Create folder with generated versions of wallpaper if not exists
+if [ ! -d $generatedversions ]; then
+    mkdir $generatedversions
+fi
+
+# -----------------------------------------------------
+# Get selected wallpaper
+# -----------------------------------------------------
+
+if [ -z $1 ]; then
+    if [ -f $cachefile ]; then
+        wallpaper=$(cat $cachefile)
     else
-      printf "%s\n" "$pic_name"
+        wallpaper=$defaultwallpaper
     fi
-  done
-}
+else
+    wallpaper=$1
+fi
+used_wallpaper=$wallpaper
+echo ":: Setting wallpaper with source image $wallpaper"
+tmpwallpaper=$wallpaper
 
-# initiate swww if not running
-swww query || swww-daemon --format xrgb
+# -----------------------------------------------------
+# Copy path of current wallpaper to cache file
+# -----------------------------------------------------
 
-# Choice of wallpapers
-main() {
-  choice=$(menu | $rofi_command)
-  
-  # Trim any potential whitespace or hidden characters
-  choice=$(echo "$choice" | xargs)
-  RANDOM_PIC_NAME=$(echo "$RANDOM_PIC_NAME" | xargs)
+if [ ! -f $cachefile ]; then
+    touch $cachefile
+fi
+echo "$wallpaper" >$cachefile
+echo ":: Path of current wallpaper copied to $cachefile"
 
-  # No choice case
-  if [[ -z "$choice" ]]; then
-    echo "No choice selected. Exiting."
-    exit 0
-  fi
+# -----------------------------------------------------
+# Get wallpaper filename
+# -----------------------------------------------------
+wallpaperfilename=$(basename $wallpaper)
+echo ":: Wallpaper Filename: $wallpaperfilename"
 
-  # Random choice case
-  if [[ "$choice" == "$RANDOM_PIC_NAME" ]]; then
-	swww img -o "$focused_monitor" "$RANDOM_PIC" $SWWW_PARAMS;
-    sleep 0.5
-    "$SCRIPTSDIR/WallustSwww.sh"
-    sleep 0.2
-    "$SCRIPTSDIR/Refresh.sh"
-    exit 0
-  fi
+# -----------------------------------------------------
+# Wallpaper Effects
+# -----------------------------------------------------
 
-  # Find the index of the selected file
-  pic_index=-1
-  for i in "${!PICS[@]}"; do
-    filename=$(basename "${PICS[$i]}")
-    if [[ "$filename" == "$choice"* ]]; then
-      pic_index=$i
-      break
+if [ -f $wallpapereffect ]; then
+    effect=$(cat $wallpapereffect)
+    if [ ! "$effect" == "off" ]; then
+        used_wallpaper=$generatedversions/$effect-$wallpaperfilename
+        if [ -f $generatedversions/$effect-$wallpaperfilename ] && [ "$force_generate" == "0" ] && [ "$use_cache" == "1" ]; then
+            echo ":: Use cached wallpaper $effect-$wallpaperfilename"
+        else
+            echo ":: Generate new cached wallpaper $effect-$wallpaperfilename with effect $effect"
+            notify-send --replace-id=1 "Using wallpaper effect $effect..." "with image $wallpaperfilename" -h int:value:33
+            source $HOME/.config/hypr/effects/wallpaper/$effect
+        fi
+        echo ":: Loading wallpaper $generatedversions/$effect-$wallpaperfilename with effect $effect"
+        echo ":: Setting wallpaper with $used_wallpaper"
+        touch $waypaperrunning
+        waypaper --wallpaper $used_wallpaper
+    else
+        echo ":: Wallpaper effect is set to off"
     fi
-  done
-
-  if [[ $pic_index -ne -1 ]]; then
-    swww img -o "$focused_monitor" "${PICS[$pic_index]}" $SWWW_PARAMS
-  else
-    echo "Image not found."
-    exit 1
-  fi
-}
-
-# Check if rofi is already running
-if pidof rofi > /dev/null; then
-  pkill rofi
-  sleep 1  # Allow some time for rofi to close
+else
+    effect="off"
 fi
 
-main
+# -----------------------------------------------------
+# Execute pywal
+# -----------------------------------------------------
 
-sleep 0.5
-"$SCRIPTSDIR/WallustSwww.sh"
+echo ":: Execute pywal with $used_wallpaper"
+wal -q -i "$used_wallpaper"
+source "$HOME/.cache/wal/colors.sh"
 
-sleep 0.2
-"$SCRIPTSDIR/Refresh.sh"
+# -----------------------------------------------------
+# Walcord
+# -----------------------------------------------------
 
+if type walcord >/dev/null 2>&1; then
+    walcord
+fi
+
+# -----------------------------------------------------
+# Reload Waybar
+# -----------------------------------------------------
+
+killall -SIGUSR2 waybar
+
+# -----------------------------------------------------
+# Update Pywalfox
+# -----------------------------------------------------
+
+if type pywalfox >/dev/null 2>&1; then
+    pywalfox update
+fi
+
+# -----------------------------------------------------
+# Update SwayNC
+# -----------------------------------------------------
+sleep 0.1
+swaync-client -rs
+
+# -----------------------------------------------------
+# Created blurred wallpaper
+# -----------------------------------------------------
+
+if [ -f $generatedversions/blur-$blur-$effect-$wallpaperfilename.png ] && [ "$force_generate" == "0" ] && [ "$use_cache" == "1" ]; then
+    echo ":: Use cached wallpaper blur-$blur-$effect-$wallpaperfilename"
+else
+    echo ":: Generate new cached wallpaper blur-$blur-$effect-$wallpaperfilename with blur $blur"
+    # notify-send --replace-id=1 "Generate new blurred version" "with blur $blur" -h int:value:66
+    magick $used_wallpaper -resize 75% $blurredwallpaper
+    echo ":: Resized to 75%"
+    if [ ! "$blur" == "0x0" ]; then
+        magick $blurredwallpaper -blur $blur $blurredwallpaper
+        cp $blurredwallpaper $generatedversions/blur-$blur-$effect-$wallpaperfilename.png
+        echo ":: Blurred"
+    fi
+fi
+cp $generatedversions/blur-$blur-$effect-$wallpaperfilename.png $blurredwallpaper
+
+# -----------------------------------------------------
+# Create rasi file
+# -----------------------------------------------------
+
+if [ ! -f $rasifile ]; then
+    touch $rasifile
+fi
+echo "* { current-image: url(\"$blurredwallpaper\", height); }" >"$rasifile"
+
+# -----------------------------------------------------
+# Created square wallpaper
+# -----------------------------------------------------
+
+echo ":: Generate new cached wallpaper square-$wallpaperfilename"
+magick $tmpwallpaper -gravity Center -extent 1:1 $squarewallpaper
+cp $squarewallpaper $generatedversions/square-$wallpaperfilename.png
