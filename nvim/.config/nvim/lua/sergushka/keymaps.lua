@@ -44,15 +44,15 @@ vim.keymap.set("n", "<leader>di", "<cmd> DapStepInto <CR>", { desc = "[d]ebugger
 -- goto maps
 vim.keymap.set("n", "gbn", ":bnext<CR>", { buffer = bufnr, desc = "Goto [b]uffer [n]ext" })
 vim.keymap.set("n", "gbp", ":bprevious<CR>", { buffer = bufnr, desc = "Goto [b]uffer [p]revious" })
-vim.keymap.set("n", "gd", ":Telescope lsp_definitions", { buffer = bufnr, desc = "[G]oto [D]efinition" })
-vim.keymap.set("n", "gr", ":Telescope lsp_references", { buffer = bufnr, desc = "[G]oto [R]eferences" })
-vim.keymap.set("n", "gI", ":Telescope lsp_implementations", { buffer = bufnr, desc = "[G]oto [I]mplementation" })
-vim.keymap.set("n", "<leader>D", ":Telescope lsp_type_definitions", { buffer = bufnr, desc = "Type [D]efinition" })
-vim.keymap.set("n", "<leader>ds", ":Telescope lsp_document_symbols", { buffer = bufnr, desc = "[D]ocument [S]ymbols" })
+vim.keymap.set("n", "gd", ":Telescope lsp_definitions<CR>", { buffer = bufnr, desc = "[G]oto [D]efinition" })
+vim.keymap.set("n", "gr", ":Telescope lsp_references<CR>", { buffer = bufnr, desc = "[G]oto [R]eferences" })
+vim.keymap.set("n", "gI", ":Telescope lsp_implementations<CR>", { buffer = bufnr, desc = "[G]oto [I]mplementation" })
+vim.keymap.set("n", "<leader>D", ":Telescope lsp_type_definitions<CR>", { buffer = bufnr, desc = "Type [D]efinition" })
+vim.keymap.set("n", "<leader>ds", ":Telescope lsp_document_symbols<CR>", { buffer = bufnr, desc = "[D]ocument [S]ymbols" })
 vim.keymap.set(
   "n",
   "<leader>ws",
-  ":Telescope lsp_dynamic_workspace_symbols",
+  ":Telescope lsp_dynamic_workspace_symbols<CR>",
   { buffer = bufnr, desc = "[W]orkspace [S]ymbols" }
 )
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })

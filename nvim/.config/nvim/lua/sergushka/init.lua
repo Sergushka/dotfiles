@@ -192,45 +192,6 @@ require("lazy").setup({
     "christoomey/vim-tmux-navigator",
   },
   {
-    "nvimtools/none-ls.nvim",
-    dependencies = {
-      "williamboman/mason-lspconfig.nvim",
-      "nvimtools/none-ls-extras.nvim",
-      "williamboman/mason.nvim",
-      "jay-babu/mason-null-ls.nvim",
-    },
-    config = function()
-      local null_ls = require("null-ls")
-      local formatting = null_ls.builtins.formatting -- to setup formatters
-      local diagnostics = null_ls.builtins.diagnostics -- to setup linters
-
-      -- list of formatters & linters for mason to install
-      require("mason-null-ls").setup({
-        ensure_installed = {
-          "stylua", -- lua formatter
-          "shfmt",
-          "ruff",
-        },
-        -- auto-install configured formatters & linters (with null-ls)
-        automatic_installation = true,
-      })
-
-      local sources = {
-        diagnostics.checkmake,
-        formatting.prettier.with({ filetypes = { "html", "json", "yaml", "markdown" } }),
-        formatting.stylua,
-        formatting.shfmt.with({ args = { "-i", "4" } }),
-        require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
-        require("none-ls.formatting.ruff_format"),
-      }
-
-      null_ls.setup({
-        -- debug = true, -- Enable debug mode. Inspect logs with :NullLsLog.
-        sources = sources,
-      })
-    end,
-  },
-  {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
@@ -633,10 +594,6 @@ require("lazy").setup({
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
     },
     config = function()
       require("noice").setup({
