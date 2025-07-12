@@ -37,9 +37,29 @@ autoload -Uz compinit && compinit
 zinit cdreplay -q
 
 # Aliases
-alias ls="eza --icons=always"
 alias boot-win="sudo efibootmgr -n 2; sudo reboot"
 alias boot-bios="sudo systemctl reboot --firmware-setup"
+alias ls='eza -lh --group-directories-first --icons=auto'
+alias lsa='ls -a'
+alias lt='eza --tree --level=2 --long --icons --git'
+alias lta='lt -a'
+alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+open() {
+  xdg-open "$@" >/dev/null 2>&1
+}
+
+# Directories
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# Git
+alias gcm='git commit -m'
+alias gcam='git commit -a -m'
+alias gcad='git commit -a --amend'
+
+# Find packages without leaving the terminal
+alias yayf="yay -Slq | fzf --multi --preview 'yay -Sii {1}' --preview-window=down:75% | xargs -ro yay -S"
   
 # History
 HISTSIZE=5000
