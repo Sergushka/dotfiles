@@ -1,26 +1,38 @@
-// Zed settings
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run the `open default settings` command
-// from the command palette or from `Zed` application menu.
 {
-  "theme": "Ayu Dark",
+  "edit_predictions": {
+    "mode": "subtle"
+  },
+  "show_edit_predictions": true,
+  "agent": {
+    "sidebar_side": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "disable_ai": false,
+  "cli_default_open_behavior": "new_window",
+  "agent_servers": {
+    "codex-acp": {
+      "type": "registry",
+    },
+  },
+  "base_keymap": "Cursor",
+  "theme": "Gruvbox Dark",
   "buffer_font_size": 15,
-  "autosave": "on_focus_change",
+  "autosave": "off",
   "vim_mode": true,
-  "features": {
-    "copilot": false
+  "vim": {
+    "use_smartcase_find": true,
+    "toggle_relative_line_numbers": true,
+    "highlight_on_yank_duration": 200,
   },
   "lsp": {
     "rust-analyzer": {
-      "initialization_options": {
-        "checkOnSave": {
-          "command": "clippy" // rust-analyzer.checkOnSave.command
-        }
-      }
-    }
-  }
+      "settings": {
+        "checkOnSave": true,
+        "check": {
+          "command": "clippy",
+        },
+      },
+    },
+  },
 }

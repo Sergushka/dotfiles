@@ -1,18 +1,54 @@
 [
   {
-    "context": "Editor && showing_code_actions",
+    "context": "Workspace",
     "bindings": {
-      "enter": "editor::ConfirmCodeAction"
-    }
+      "cmd-shift-e": "workspace::ToggleRightDock",
+      "cmd-shift-b": "workspace::ToggleLeftDock",
+      "cmd-shift-t": "terminal_panel::Toggle",
+    },
   },
   {
-    "context": "Editor",
+    "context": "vim_mode == normal && !menu",
     "bindings": {
-      "cmd-shift-k": "editor::MoveLineUp",
-      "cmd-shift-j": "editor::MoveLineDown",
-      "cmd-k cmd-g": "editor::GoToDefinition",
-      "cmd-k cmd-r": "editor::Rename",
-      "ctrl-k": "editor::Hover"
-    }
-  }
+      "space f": "file_finder::Toggle",
+      "space w": "workspace::Save",
+      "space q": "pane::CloseActiveItem",
+      "space x": "pane::CloseActiveItem",
+      "space t": "terminal_panel::Toggle",
+      "space e": "workspace::ToggleRightDock",
+      "space g": ["task::Spawn", { "task_name": "Lazygit" }],
+      "shift-j": "workspace::ActivatePaneDown",
+    },
+  },
+  {
+    "context": "vim_mode == visual && !menu",
+    "bindings": {
+      // Visual bindings
+      "shift-j": "editor::MoveLineDown",
+      "shift-k": "editor::MoveLineUp",
+    },
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      // Vim normal + visual mode
+    },
+  },
+  {
+    "context": "EmptyPane || SharedScreen",
+    "bindings": {
+      // Put key bindings here (in addition to the context above) if you want them to
+      // work when no editor exists.
+      "space f": "file_finder::Toggle",
+    },
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w l": "workspace::ActivatePaneRight",
+      "ctrl-w k": "workspace::ActivatePaneUp",
+      "ctrl-w j": "workspace::ActivatePaneDown",
+    },
+  },
 ]
