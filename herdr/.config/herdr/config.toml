@@ -66,7 +66,7 @@ prefix = "ctrl+s"
 # help = "prefix+?"
 # settings = "prefix+s"
 # detach = "prefix+q"
-# reload_config = "prefix+shift+r"
+reload_config = "prefix+r"
 # open_notification_target = "prefix+o"
 # workspace_picker = "prefix+w"
 # goto = "prefix+g"
@@ -104,7 +104,8 @@ split_vertical = "prefix+|"
 split_horizontal = "prefix+minus"
 close_pane = "prefix+x"
 # zoom = "prefix+z"       # legacy alias: fullscreen
-# resize_mode = "prefix+r"
+copy_mode = "prefix+v"
+resize_mode = "prefix+shift+r"
 # toggle_sidebar = "prefix+b"
 
 # Navigate-mode movement. These local shortcuts win while navigate mode is open.
@@ -240,7 +241,7 @@ resume_agents_on_restore = true
 # allow_nested = false
 # Experimental local Kitty graphics rendering for attached clients.
 # Requires a Kitty graphics-compatible outer terminal.
-# kitty_graphics = false
+kitty_graphics = true
 # Save recent pane screen history across full server restarts.
 pane_history = true
 # While prefix mode is active, temporarily switch the macOS host input
@@ -266,4 +267,4 @@ pane_history = true
 [advanced]
 # Maximum scrollback buffer size in bytes retained per pane terminal.
 # Matches Ghostty's default scrollback-limit behavior.
-# scrollback_limit_bytes = 10000000
+scrollback_limit_bytes = 31457280
