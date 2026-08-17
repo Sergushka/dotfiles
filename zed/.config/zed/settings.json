@@ -16,7 +16,7 @@
     },
   },
   "base_keymap": "Cursor",
-  "theme": "Gruvbox Dark",
+  "theme": "Omazed",
   "buffer_font_size": 15,
   "autosave": "off",
   "vim_mode": true,
