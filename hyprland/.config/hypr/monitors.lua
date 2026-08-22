@@ -7,8 +7,14 @@ local omarchy_monitor_scale = 1.25
 hl.env("GDK_SCALE", tostring(omarchy_gdk_scale))
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = omarchy_monitor_scale })
 
--- Dell Alienware AW2725DF: force native 1440p at 240 Hz.
-hl.monitor({ output = "DP-1", mode = "2560x1440@239.97", position = "0x0", scale = 1 })
+-- Dell Alienware AW2725DF: force native 1440p at 240 Hz with 10-bit output.
+hl.monitor({
+  output = "DP-1",
+  mode = "2560x1440@239.97",
+  position = "0x0",
+  scale = 1,
+  bitdepth = 10,
+})
 
 -- Configure a specific monitor.
 -- hl.monitor({ output = "DP-2", mode = "2560x1440@144", position = "0x0", scale = 1 })

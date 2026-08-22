@@ -45,12 +45,12 @@
 -- })
 
 -- Keep US as the primary layout and add Russian as a secondary layout.
--- Press Alt + Shift to switch layouts.
+-- Press Ctrl + Space to switch layouts.
 hl.config({
   input = {
     kb_layout = "us,ru",
     kb_variant = ",",
-    kb_options = "compose:caps,shift:both_capslock_cancel,grp:alt_shift_toggle",
+    kb_options = "compose:caps,shift:both_capslock_cancel,grp:ctrl_space_toggle",
   },
 })
 

@@ -21,6 +21,10 @@ o.bind("SUPER + Q", "Close window", hl.dsp.window.close())
 
 o.bind("ALT + SHIFT + code:13", "Screenshot", "omarchy-capture-screenshot")
 
+-- Add a second clipboard-manager shortcut (replacing the default HEY Calendar binding).
+hl.unbind("SUPER + SHIFT + C")
+o.bind("SUPER + SHIFT + C", "Clipboard manager", "omarchy-shell shell toggle omarchy.clipboard")
+
 -- Change an existing binding by unbinding it first, then binding the key again.
 -- This example changes SUPER+SPACE from the launcher to the Omarchy root menu.
 -- hl.unbind("SUPER + SPACE")
