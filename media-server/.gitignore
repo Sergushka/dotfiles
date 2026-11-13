@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+state/
+config/
+backups/
+*.tar.gz
+*.sqlite*
+*.db*
+__pycache__/
+*.pyc
