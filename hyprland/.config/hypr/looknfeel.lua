@@ -48,3 +48,6 @@
 --     column_width = 0.97,
 --   },
 -- })
+
+-- HDR is controlled manually with Super+Alt+H.
+hl.config({ render = { cm_auto_hdr = 0 } })

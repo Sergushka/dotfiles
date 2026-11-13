@@ -14,6 +14,7 @@ hl.monitor({
   position = "0x0",
   scale = 1,
   bitdepth = 10,
+  cm = "srgb",
 })
 
 -- Configure a specific monitor.

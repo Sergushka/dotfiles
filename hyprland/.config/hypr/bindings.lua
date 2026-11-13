@@ -37,3 +37,16 @@ o.bind("SUPER + SHIFT + C", "Clipboard manager", "omarchy-shell shell toggle oma
 -- o.bind("SUPER + SHIFT + S", nil, "omarchy-capture-screenshot")
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
 -- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
+
+-- Explicitly switch the monitor between SDR and HDR.
+o.bind("SUPER + ALT + H", "Toggle HDR / SDR", function()
+  local monitor = hl.get_monitor("DP-1")
+  if not monitor then return end
+  local hdr = monitor.cm ~= "hdr" and monitor.cm ~= "hdredid"
+  hl.config({ render = { cm_auto_hdr = 0 } })
+  hl.monitor({
+    output = "DP-1", mode = "2560x1440@239.97", position = "0x0",
+    scale = 1, bitdepth = 10, cm = hdr and "hdr" or "srgb",
+  })
+  hl.exec_cmd("omarchy notification send -t 3000 'Display: " .. (hdr and "HDR" or "SDR") .. "'")
+end)
