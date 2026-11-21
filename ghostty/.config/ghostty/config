@@ -1,4 +1,5 @@
-# Dynamic theme colors
+# Theme (Dracula+ fallback on macOS; overridden by Omarchy dynamic theme on Linux)
+theme = Dracula+
 config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
 
 # Font
@@ -13,6 +14,16 @@ window-padding-y = 14
 confirm-close-surface=false
 resize-overlay = never
 gtk-toolbar-style = flat
+
+# Always show ghostty as the title
+title = ghostty
+
+# Clipboard settings
+clipboard-read = allow
+
+# macOS options
+macos-option-as-alt = true
+macos-titlebar-proxy-icon = hidden
 
 # Cursor styling
 cursor-style = "block"
