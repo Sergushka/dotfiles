@@ -1,4 +1,18 @@
 {
+  "languages": {
+    "Python": {
+      "code_actions_on_format": {
+        "source.organizeImports.ruff": true,
+      },
+      "formatter": {
+        "language_server": {
+          "name": "ruff",
+        },
+      },
+      "language_servers": ["ty", "ruff", "!basedpyright"],
+      "format_on_save": "off",
+    },
+  },
   "edit_predictions": {
     "provider": "ollama",
     "mode": "subtle"
