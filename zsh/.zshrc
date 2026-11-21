@@ -40,7 +40,7 @@ zinit cdreplay -q
 alias boot-win="sudo efibootmgr -n 2; sudo reboot"
 alias boot-bios="sudo systemctl reboot --firmware-setup"
 alias ls='eza -lh --group-directories-first --icons=auto'
-alias lsa='ls -a'
+alias ll='ls -a'
 alias lt='eza --tree --level=2 --long --icons --git'
 alias lta='lt -a'
 alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
