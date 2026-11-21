@@ -1,0 +1,35 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/settings.json",
+  "agentMode": "accept-edits",
+  "allowNonWorkspaceAccess": true,
+  "colorScheme": "tokyo night",
+  "editorMode": "vim",
+  "model": "Gemini 4 Neon (High)",
+  "notifications": true,
+  "permissions": {
+    "allow": [
+      "read_file(*)",
+      "write_file(*)"
+    ],
+    "deny": [
+      "command(rm -rf /)",
+      "command(rm -rf ~)"
+    ],
+    "ask": [
+      "command(sudo)",
+      "command(rm -rf)",
+      "command(git push --force)",
+      "command(git push -f)",
+      "command(git reset --hard)",
+      "command(dd)",
+      "command(mkfs)"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.gemini/antigravity-cli/statusline.sh",
+    "enabled": true
+  },
+  "toolPermission": "always-proceed",
+  "vimInsertFirst": true
+}
