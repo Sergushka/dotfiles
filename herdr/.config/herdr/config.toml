@@ -200,7 +200,7 @@ status_indicators = "symbols"
 # delivery = "off"
 # delay_seconds = 1
 
-delivery = "herdr"
+delivery = "terminal"
 [ui.toast.herdr]
 # position = "bottom-right"
 
